@@ -1,0 +1,111 @@
+<%- include('partials/header') %>
+    <% if (messages && messages.length> 0) { %>
+        <div id="flash-message"
+            class="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span>
+                <%= messages[0] %>
+            </span>
+        </div>
+        <script>
+            setTimeout(() => {
+                document.getElementById('flash-message').style.display = 'none';
+            }, 3000);
+        </script>
+        <% } %>
+
+            <% if (successMessages && successMessages.length> 0) { %>
+                <div id="flash-message"
+                    class="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>
+                        <%= successMessages[0] %>
+                    </span>
+                </div>
+                <script>
+                    setTimeout(() => {
+                        document.getElementById('flash-message').style.display = 'none';
+                    }, 3000);
+                </script>
+                <% } %>
+                    <div class="w-screen h-screen bg-white overflow-hidden">
+
+                        <nav id="navbar"
+                            class="w-full p-3 2xl:p-5 flex justify-between items-center border-b-2 border-solid border-[#111]">
+                            <div id="fst">
+                                <a href="/" class="text-xl 2xl:text-2xl font-bold">VidVault</a>
+                            </div>
+                            <div id="snd" class="flex gap-5">
+                                <a href="/" class="text-sm 2xl:text-xl font-medium cursor-pointer">Home</a>
+                                <a href="/upload" class="text-sm 2xl:text-xl font-medium cursor-pointer">Upload</a>
+                                <a href="/profile" class="text-sm 2xl:text-xl font-medium cursor-pointer">Profile</a>
+                            </div>
+                            <div id="thd" class="flex gap-5">
+                                <% if (userId) { %>
+                                    <a href="/auth/logout"
+                                        class="text-sm 2xl:text-xl bg-white text-zinc-700 border border-zinc-700 p-2 rounded hover:bg-zinc-100">Logout</a>
+                                    <% } else { %>
+                                        <a href="/auth/login"
+                                            class="text-sm 2xl:text-xl bg-white text-zinc-700 border border-zinc-700 p-2 rounded hover:bg-zinc-100">Login</a>
+                                        <a href="/auth/register"
+                                            class="text-sm 2xl:text-xl bg-white text-zinc-700 border border-zinc-700 p-2 rounded hover:bg-zinc-100">Register</a>
+                                        <% } %>
+                            </div>
+                        </nav>
+
+                        <section id="upload" class="w-full h-full flex flex-col items-center p-10">
+                            <div class="w-full">
+                                <h1 class="text-4xl font-bold">Upload Your Video</h1>
+                            </div>
+                            <div class="container mt-8 w-full px-4">
+                                <form action="/videos/upload-vid" method="POST" enctype="multipart/form-data"
+                                    class="w-full max-w-lg">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="video">
+                                            Video File
+                                        </label>
+                                        <input
+                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            id="video" type="file" name="video" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="caption">
+                                            Caption
+                                        </label>
+                                        <input
+                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            id="caption" type="text" name="caption" required>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <button
+                                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                            type="submit">
+                                            Upload
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+
+                        <script>
+                            // Calculate the height of the navbar and set it as a CSS variable
+                            function setNavbarHeight() {
+                                const navbar = document.getElementById('navbar');
+                                const navbarHeight = navbar.offsetHeight;
+                                document.documentElement.style.setProperty('--navbar-height', `${navbarHeight}px`);
+                            }
+
+                            // Set the navbar height on page load and on window resize
+                            window.addEventListener('load', setNavbarHeight);
+                            window.addEventListener('resize', setNavbarHeight);
+                        </script>
+                    </div>
+
+
+                    <%- include('partials/footer') %>

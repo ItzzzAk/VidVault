@@ -1,0 +1,97 @@
+<!-- backend/views/register.ejs -->
+<%- include('partials/header') %>
+    <% if (messages && messages.length > 0) { %>
+        <div id="flash-message"
+            class="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span>
+                <%= messages[0] %>
+            </span>
+        </div>
+        <script>
+            setTimeout(() => {
+                document.getElementById('flash-message').style.display = 'none';
+            }, 3000);
+        </script>
+    <% } %>
+
+    <% if (successMessages && successMessages.length > 0) { %>
+        <div id="flash-message"
+            class="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>
+                <%= successMessages[0] %>
+            </span>
+        </div>
+        <script>
+            setTimeout(() => {
+                document.getElementById('flash-message').style.display = 'none';
+            }, 3000);
+        </script>
+    <% } %>
+
+                    <div
+                        class="w-screen h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 overflow-hidden flex justify-center items-center">
+                        <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-2xl">
+                            <h2 class="text-3xl font-extrabold text-center text-gray-800">Create Your Account</h2>
+                            <form action="/auth/register" method="POST" class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                    <input type="text" name="name" id="name" required
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Email
+                                        Address</label>
+                                    <input type="email" name="email" id="email" required
+                                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                </div>
+                                <div>
+                                    <label for="password"
+                                        class="block text-sm font-medium text-gray-700">Password</label>
+                                    <div class="relative">
+                                        <input type="password" name="password" id="password" required
+                                            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <button type="button" onclick="togglePasswordVisibility()"
+                                            class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600">
+                                            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit"
+                                        class="w-full p-3 text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:bg-gradient-to-l hover:from-purple-500 hover:to-blue-500 transform transition-transform duration-300 hover:scale-105">Register</button>
+                                </div>
+                            </form>
+                            <p class="text-center text-sm text-gray-600">Already have an account? <a href="/auth/login"
+                                    class="text-purple-500 hover:underline">Login</a></p>
+                        </div>
+                    </div>
+
+                    <script>
+                        function togglePasswordVisibility() {
+                            const passwordField = document.getElementById('password');
+                            const eyeIcon = document.getElementById('eye-icon');
+                            if (passwordField.type === 'password') {
+                                passwordField.type = 'text';
+                                eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7 1.274-4.057 5.065-7 9.542-7 1.285 0 2.52.243 3.675.675M15 12a3 3 0 11-6 0 3 3 0 016 0z" />';
+                            } else {
+                                passwordField.type = 'password';
+                                eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />';
+                            }
+                        }
+                    </script>
+
+                    <%- include('partials/footer') %>

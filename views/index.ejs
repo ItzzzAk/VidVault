@@ -1,0 +1,110 @@
+<!-- backend/views/home.ejs -->
+<%- include('partials/header') %>
+
+    <% if (messages && messages.length> 0) { %>
+        <div id="flash-message"
+            class="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span>
+                <%= messages[0] %>
+            </span>
+        </div>
+        <script>
+            setTimeout(() => {
+                document.getElementById('flash-message').style.display = 'none';
+            }, 3000);
+        </script>
+        <% } %>
+
+            <% if (successMessages && successMessages.length> 0) { %>
+                <div id="flash-message"
+                    class="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>
+                        <%= successMessages[0] %>
+                    </span>
+                </div>
+                <script>
+                    setTimeout(() => {
+                        document.getElementById('flash-message').style.display = 'none';
+                    }, 3000);
+                </script>
+                <% } %>
+
+
+                    <div class="w-screen h-screen bg-white overflow-hidden">
+                        <nav id="navbar" class="w-full p-3 2xl:p-5 flex justify-between items-center">
+                            <div id="fst">
+                                <h1 class="text-xl 2xl:text-2xl font-bold">
+                                    <a href="/" class="text-black no-underline">VidVault</a>
+                                </h1>
+                            </div>
+                            <div id="snd" class="flex gap-5">
+                                <a href="/" class="text-sm 2xl:text-xl font-medium cursor-pointer">Home</a>
+                                <a href="/upload" class="text-sm 2xl:text-xl font-medium cursor-pointer">Upload</a>
+                                <a href="/profile" class="text-sm 2xl:text-xl font-medium cursor-pointer">Profile</a>
+                            </div>
+                            <div id="thd" class="flex gap-5">
+                                <% if (userId) { %>
+                                    <a href="/auth/logout" class="text-sm 2xl:text-xl bg-white text-zinc-700 border border-zinc-700 p-2 rounded hover:bg-zinc-100">Logout</a>
+                                <% } else { %>
+                                    <a href="/auth/login" class="text-sm 2xl:text-xl bg-white text-zinc-700 border border-zinc-700 p-2 rounded hover:bg-zinc-100">Login</a>
+                                    <a href="/auth/register" class="text-sm 2xl:text-xl bg-white text-zinc-700 border border-zinc-700 p-2 rounded hover:bg-zinc-100">Register</a>
+                                <% } %>
+                            </div>
+                        </nav>
+
+                        <section id="hero" class="w-full" style="height: calc(100vh - var(--navbar-height));">
+                            <div class="heading w-full flex flex-col items-center">
+                                <h1 class="text-[4vw] 2xl:text-[5vw] font-bold uppercase leading-none">Videographer</h1>
+                                <h1 class="text-[4vw] 2xl:text-[5vw] font-bold uppercase leading-none">& Video Editor
+                                </h1>
+                            </div>
+                            <div class="imagesec w-full h-[30vw] flex justify-center items-center">
+                                <div class="w-1/2 h-full 2xl:w-[50vw] 2xl:h-[30vw] flex items-center justify-center">
+                                    <img src="https://i.pinimg.com/564x/ad/ec/a5/adeca556aa2bf2c42b69d3d6231023dc.jpg"
+                                        class="w-[85%] h-[85%] object-cover rounded-2xl shadow-xl shadow-gray-500/50"
+                                        alt="">
+                                </div>
+                                <div class="w-1/2 h-full 2xl:w-[30vw] 2xl:h-[30vw]">
+                                    <div class="w-full px-10 py-10 2xl:px-5 2xl:py-8">
+                                        <span class="text-md 2xl:text-xl font-semibold">Showcase your videography and
+                                            video editing skills by adding your own videos. Like and comment on others'
+                                            videos to connect with fellow creatives. Join our community and get inspired
+                                            by amazing content.</span>
+                                    </div>
+                                    <div class="w-full flex gap-5">
+                                        <button
+                                            class="text-xl 2xl:text-2xl ml-10 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-none p-3 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105">
+                                            <a href="/upload">Upload</a>
+                                        </button>
+                                        <button
+                                            class="text-xl 2xl:text-2xl bg-gradient-to-r from-green-500 to-teal-500 text-white border-none p-3 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105">
+                                            <a href="/profile">Profile</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <script>
+                            // Calculate the height of the navbar and set it as a CSS variable
+                            function setNavbarHeight() {
+                                const navbar = document.getElementById('navbar');
+                                const navbarHeight = navbar.offsetHeight;
+                                document.documentElement.style.setProperty('--navbar-height', `${navbarHeight}px`);
+                            }
+
+                            // Set the navbar height on page load and on window resize
+                            window.addEventListener('load', setNavbarHeight);
+                            window.addEventListener('resize', setNavbarHeight);
+                        </script>
+                    </div>
+
+                    <%- include('partials/footer') %>
