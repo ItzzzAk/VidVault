@@ -1,4 +1,5 @@
 # 📹 Video Gallery
+![Screenshot of VidVault](public/css/Screenshot%202024-09-24%20214940.png)
 
 This project is a Video Gallery application that allows users to upload, view, and manage videos. The application is built using Node.js, Express, MongoDB, and Firebase.
 
